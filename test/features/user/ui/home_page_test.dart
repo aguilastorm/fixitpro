@@ -1,10 +1,11 @@
 import 'package:fixitpro/features/user/ui/home_page.dart';
+import 'package:fixitpro/features/user/ui/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 
 void main() {
-  testWidgets('HomePage with Title, Description and Two buttons', (WidgetTester tester) async {
+  testWidgets('HomePage with Title, Description and One button', (WidgetTester tester) async {
     // Build the HomePage widget
     await tester.pumpWidget(const MaterialApp(home: HomePage()));
 
@@ -16,8 +17,26 @@ void main() {
 
     // Check that the button is displayed
     expect(find.text('Quiro suscribirme!'), findsOneWidget);
+  });
 
-    // Check that the button is displayed
-    expect(find.text('Login'), findsOneWidget);
+   testWidgets('Test button press navigates to RegisterPage', (WidgetTester tester) async {
+    // Wrap your HomePage inside a MaterialApp widget
+    await tester.pumpWidget(MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/register': (context) => const RegisterPage(), // Define your routes
+      },
+    ));
+
+    // Find the 'Quiero suscribirme!' button and tap it
+    final button = find.text('Quiero suscribirme!');
+    await tester.tap(button);
+
+    // Rebuild the widget tree after the state change
+    await tester.pumpAndSettle();
+
+    // Verify that the RegisterPage is displayed
+    expect(find.byType(RegisterPage), findsOneWidget);
   });
 }
