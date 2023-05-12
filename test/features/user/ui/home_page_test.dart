@@ -16,7 +16,7 @@ void main() {
     expect(find.text('¡Nunca dejes que un electrodoméstico roto arruine tu día! Con FixItPro, solicitar la reparación de electrodomésticos a domicilio es tan fácil como pulsar un botón. Regístrate, agrega tus direcciones y solicita servicios de reparación directamente desde tu teléfono.'), findsOneWidget);
 
     // Check that the button is displayed
-    expect(find.text('Quiro suscribirme!'), findsOneWidget);
+    expect(find.text('Quiro suscribirme!'), findsOneWidget); // TODO: Review text syntax
   });
 
    testWidgets('Test button press navigates to RegisterPage', (WidgetTester tester) async {
