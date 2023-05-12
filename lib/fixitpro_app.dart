@@ -1,3 +1,4 @@
+import 'package:fixitpro/common/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'common/navigation/router/routes.dart';
 
@@ -6,11 +7,11 @@ class FixItProApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'FixItPro App',
-      initialRoute: AppRoutes.initialRoutes,
-      routes: AppRoutes.getAppRoutes(),
-      onGenerateRoute: AppRoutes.onGenerateRoute,
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'FixItPro App',
+        initialRoute: AppRoutes.initialRoutes,
+        routes: AppRoutes.getAppRoutes(),
+        onGenerateRoute: AppRoutes.onGenerateRoute,
+        theme: AppTheme.lightTheme);
   }
 }
