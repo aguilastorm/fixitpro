@@ -7,15 +7,5 @@ type User @model {
   firstName: String!
   lastName: String!
   dateOfBirth: AWSDateTime!
-  addresses: [Address!] @hasMany
-}
-
-type Address @model {
-  id: ID!
-  street: String!
-  country: String!
-  city: String!
-  state: String!
-  zipCode: String
-  user: User @belongsTo
+  addresses: [String!]
 }

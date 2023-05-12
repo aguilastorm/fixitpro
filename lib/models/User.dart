@@ -19,7 +19,6 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
-import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -33,7 +32,7 @@ class User extends Model {
   final String? _firstName;
   final String? _lastName;
   final TemporalDateTime? _dateOfBirth;
-  final List<Address>? _addresses;
+  final List<String>? _addresses;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -89,7 +88,7 @@ class User extends Model {
     }
   }
   
-  List<Address>? get addresses {
+  List<String>? get addresses {
     return _addresses;
   }
   
@@ -103,13 +102,13 @@ class User extends Model {
   
   const User._internal({required this.id, required firstName, required lastName, required dateOfBirth, addresses, createdAt, updatedAt}): _firstName = firstName, _lastName = lastName, _dateOfBirth = dateOfBirth, _addresses = addresses, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory User({String? id, required String firstName, required String lastName, required TemporalDateTime dateOfBirth, List<Address>? addresses}) {
+  factory User({String? id, required String firstName, required String lastName, required TemporalDateTime dateOfBirth, List<String>? addresses}) {
     return User._internal(
       id: id == null ? UUID.getUUID() : id,
       firstName: firstName,
       lastName: lastName,
       dateOfBirth: dateOfBirth,
-      addresses: addresses != null ? List<Address>.unmodifiable(addresses) : addresses);
+      addresses: addresses != null ? List<String>.unmodifiable(addresses) : addresses);
   }
   
   bool equals(Object other) {
@@ -139,6 +138,7 @@ class User extends Model {
     buffer.write("firstName=" + "$_firstName" + ", ");
     buffer.write("lastName=" + "$_lastName" + ", ");
     buffer.write("dateOfBirth=" + (_dateOfBirth != null ? _dateOfBirth!.format() : "null") + ", ");
+    buffer.write("addresses=" + (_addresses != null ? _addresses!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -146,7 +146,7 @@ class User extends Model {
     return buffer.toString();
   }
   
-  User copyWith({String? firstName, String? lastName, TemporalDateTime? dateOfBirth, List<Address>? addresses}) {
+  User copyWith({String? firstName, String? lastName, TemporalDateTime? dateOfBirth, List<String>? addresses}) {
     return User._internal(
       id: id,
       firstName: firstName ?? this.firstName,
@@ -160,17 +160,12 @@ class User extends Model {
       _firstName = json['firstName'],
       _lastName = json['lastName'],
       _dateOfBirth = json['dateOfBirth'] != null ? TemporalDateTime.fromString(json['dateOfBirth']) : null,
-      _addresses = json['addresses'] is List
-        ? (json['addresses'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => Address.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null,
+      _addresses = json['addresses']?.cast<String>(),
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'firstName': _firstName, 'lastName': _lastName, 'dateOfBirth': _dateOfBirth?.format(), 'addresses': _addresses?.map((Address? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'firstName': _firstName, 'lastName': _lastName, 'dateOfBirth': _dateOfBirth?.format(), 'addresses': _addresses, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
@@ -182,9 +177,7 @@ class User extends Model {
   static final QueryField FIRSTNAME = QueryField(fieldName: "firstName");
   static final QueryField LASTNAME = QueryField(fieldName: "lastName");
   static final QueryField DATEOFBIRTH = QueryField(fieldName: "dateOfBirth");
-  static final QueryField ADDRESSES = QueryField(
-    fieldName: "addresses",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Address'));
+  static final QueryField ADDRESSES = QueryField(fieldName: "addresses");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "User";
     modelSchemaDefinition.pluralName = "Users";
@@ -209,11 +202,11 @@ class User extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: User.ADDRESSES,
-      isRequired: true,
-      ofModelName: 'Address',
-      associatedKey: Address.USER
+      isRequired: false,
+      isArray: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.string))
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
