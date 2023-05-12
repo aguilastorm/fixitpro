@@ -14,7 +14,7 @@ Future<void> main() async {
     debugPrint('Amplify configuration failed.');
   }
 
-  runApp(const FixItProApp());
+  runApp(const AppState());
 }
 
 Future<void> _configureAmplify() async {
