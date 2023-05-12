@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:fixitpro/common/utils/app_theme.dart';
 import 'package:fixitpro/common/widgets/widgets.dart';
 import 'package:fixitpro/features/user/data/user_form_provider.dart';
@@ -18,7 +19,7 @@ class RegisterPage extends StatelessWidget {
         body: Background(
             child: SingleChildScrollView(
                 child: Column(children: [
-      const SizedBox(height: 150),
+      const SizedBox(height: 100),
       CardContainer(
           width: 500,
           child: Column(
@@ -144,26 +145,51 @@ class _RegisterFormState extends State<_RegisterForm> {
                 return null;
               },
             ),
-            const SizedBox(height: 24),
-            TextFormField(
-              key: const Key('address1'),
-              textInputAction: TextInputAction.next,
-              enableSuggestions: true,
-              autocorrect: false,
-              keyboardType: TextInputType.streetAddress,
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Escribe aquí una direccion',
-                  labelText: 'Dirección 1'),
-              onChanged: (value) {
-                registerForm.firstName = value;
-                _registerMessage = '';
-                setState(() {});
-              },
-              validator: (value) {
-                if (value == '') return 'Este campo es requerido';
-                return null;
-              },
-            ),
+            // const SizedBox(height: 24),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: registerForm.addresses!.length,
+                itemBuilder: (context, index) {
+                  return Center(
+                    child: Wrap(
+                      spacing: 16,
+                      runSpacing: 16,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: TextFormField(
+                            key: Key('address$index'),
+                            textInputAction: TextInputAction.next,
+                            enableSuggestions: true,
+                            autocorrect: false,
+                            keyboardType: TextInputType.streetAddress,
+                            decoration: InputDecoration(
+                                hintText: 'Escribe aquí una direccion',
+                                labelText:
+                                    'Dirección ${index != 0 ? index + 1 : "Principal"}',
+                                suffixIcon: index != 0
+                                    ? InkWell(
+                                        child:
+                                            const Icon(Icons.delete, size: 24),
+                                        onTap: () {
+                                          registerForm.removeAddress(index);
+                                        })
+                                    : const SizedBox()),
+                            onChanged: (value) {
+                              registerForm.firstName = value;
+                              _registerMessage = '';
+                              setState(() {});
+                            },
+                            validator: (value) {
+                              if (value == '') return 'Este campo es requerido';
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -172,7 +198,10 @@ class _RegisterFormState extends State<_RegisterForm> {
                   color: AppTheme.primary,
                 ),
                 TextButton(
-                    onPressed: () {}, child: const Text('Agregar dirección')),
+                    onPressed: () {
+                      registerForm.addAddress();
+                    },
+                    child: const Text('Agregar dirección')),
               ],
             ),
             const SizedBox(height: 30),
