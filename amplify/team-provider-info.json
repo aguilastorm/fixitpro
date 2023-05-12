@@ -10,6 +10,11 @@
       "StackName": "amplify-fixitpro-dev-213031",
       "StackId": "arn:aws:cloudformation:us-east-1:022731540979:stack/amplify-fixitpro-dev-213031/f8af0fb0-f06c-11ed-9c87-0eb66ce7386b",
       "AmplifyAppId": "dy1zu9sknki7m"
+    },
+    "categories": {
+      "api": {
+        "fixitpro": {}
+      }
     }
   }
 }
