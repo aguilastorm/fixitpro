@@ -39,4 +39,13 @@ void main() {
     // Verify that the RegisterPage is displayed
     expect(find.byType(RegisterPage), findsOneWidget);
   });
+
+    testWidgets('HomePage UI Test', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: HomePage()));
+
+    await expectLater(
+      find.byType(HomePage),
+      matchesGoldenFile('test/goldens/home_page.png'),
+    );
+  });
 }
