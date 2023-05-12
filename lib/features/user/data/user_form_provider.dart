@@ -1,12 +1,32 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class RegisterFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String firstName = '';
-  String lastName = '';
-  TemporalDateTime dateOfBirth = TemporalDateTime(DateTime.now());
+  String _firstName = '';
+  String _lastName = '';
+  DateTime _dateOfBirth = DateTime.now();
+  List<String>? _addresses = [''];
+
+  String get firstName => _firstName;
+  String get lastName => _lastName;
+  DateTime get dateOfBirth => _dateOfBirth;
+  List<String>? get addresses => _addresses;
+
+  set firstName(String value) {
+    _firstName = value;
+    notifyListeners();
+  }
+
+  set lastName(String value) {
+    _lastName = value;
+    notifyListeners();
+  }
+
+  set dateOfBirth(DateTime value) {
+    _dateOfBirth = value;
+    notifyListeners();
+  }
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -16,24 +36,22 @@ class RegisterFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<String>? _addresses = [''];
-  List<String>? get addresses => _addresses;
-
-  set addresses(List<String>? value) {
-    _addresses = value;
-    notifyListeners();
-  }
-
   bool isValidForm() {
     return formKey.currentState?.validate() ?? false;
   }
 
-  addAddress() {
+  addNewFieldAddress() {
     List<String> mutableAddresses = List<String>.from(_addresses!);
     mutableAddresses.add('');
     _addresses = mutableAddresses;
     notifyListeners();
   }
+
+  updateAddress(index, address) {
+    _addresses![index] = address;
+    notifyListeners();
+  }
+
   removeAddress(int index) {
     List<String> mutableAddresses = List<String>.from(_addresses!);
     mutableAddresses.removeAt(index);

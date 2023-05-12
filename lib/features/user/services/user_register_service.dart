@@ -4,8 +4,12 @@ import 'package:fixitpro/features/user/data/user_form_provider.dart';
 import 'package:flutter/material.dart';
 import '../../../models/User.dart';
 
-class UserRegisterService extends ChangeNotifier {
-  User? _user;
+class UserService extends ChangeNotifier {
+  User? _user = User(
+      firstName: '',
+      lastName: '',
+      dateOfBirth: TemporalDateTime(DateTime.now()),
+      addresses: const ['']);
   User? get user => _user;
 
   set user(User? value) {
@@ -17,9 +21,8 @@ class UserRegisterService extends ChangeNotifier {
     final newUser = User(
         firstName: user.firstName,
         lastName: user.lastName,
-        dateOfBirth: user.dateOfBirth,
+        dateOfBirth: TemporalDateTime(user.dateOfBirth),
         addresses: user.addresses);
-
     final request = ModelMutations.create(newUser);
     final response = await Amplify.API.mutate(request: request).response;
     _user = newUser;

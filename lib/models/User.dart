@@ -49,43 +49,16 @@ class User extends Model {
       );
   }
   
-  String get firstName {
-    try {
-      return _firstName!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  String? get firstName {
+    return _firstName;
   }
   
-  String get lastName {
-    try {
-      return _lastName!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  String? get lastName {
+    return _lastName;
   }
   
-  TemporalDateTime get dateOfBirth {
-    try {
-      return _dateOfBirth!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  TemporalDateTime? get dateOfBirth {
+    return _dateOfBirth;
   }
   
   List<String>? get addresses {
@@ -100,9 +73,9 @@ class User extends Model {
     return _updatedAt;
   }
   
-  const User._internal({required this.id, required firstName, required lastName, required dateOfBirth, addresses, createdAt, updatedAt}): _firstName = firstName, _lastName = lastName, _dateOfBirth = dateOfBirth, _addresses = addresses, _createdAt = createdAt, _updatedAt = updatedAt;
+  const User._internal({required this.id, firstName, lastName, dateOfBirth, addresses, createdAt, updatedAt}): _firstName = firstName, _lastName = lastName, _dateOfBirth = dateOfBirth, _addresses = addresses, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory User({String? id, required String firstName, required String lastName, required TemporalDateTime dateOfBirth, List<String>? addresses}) {
+  factory User({String? id, String? firstName, String? lastName, TemporalDateTime? dateOfBirth, List<String>? addresses}) {
     return User._internal(
       id: id == null ? UUID.getUUID() : id,
       firstName: firstName,
@@ -186,19 +159,19 @@ class User extends Model {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: User.FIRSTNAME,
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: User.LASTNAME,
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: User.DATEOFBIRTH,
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
     

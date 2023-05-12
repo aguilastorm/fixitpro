@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fixitpro/features/user/ui/register_page.dart'; // Import your RegisterPage here
+import 'package:fixitpro/features/user/ui/register_name_page.dart'; // Import your RegisterPage here
 
 void main() {
   testWidgets('RegisterPage form test', (WidgetTester tester) async {

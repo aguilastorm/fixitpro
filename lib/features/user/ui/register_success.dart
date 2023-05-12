@@ -2,8 +2,8 @@ import 'package:fixitpro/common/widgets/card_container.dart';
 import 'package:fixitpro/features/user/ui/background.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class RegisterSuccessPage extends StatelessWidget {
+  const RegisterSuccessPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +23,25 @@ class HomePage extends StatelessWidget {
                       style: TextStyle(fontSize: 40),
                     ),
                     const SizedBox(height: 50),
-                    const Text(
-                      '¡Nunca dejes que un electrodoméstico roto arruine tu día! Con FixItPro, solicitar la reparación de electrodomésticos a domicilio es tan fácil como pulsar un botón. Regístrate en 3 simples pasos directamente desde tu teléfono.',
+                    const SizedBox(
+                      height: 16,
                     ),
+                    const Text(
+                      'Se han registrado tus datos exitosamente.',
+                      style: TextStyle(fontSize: 15),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const Text(
+                        'Enviaremos un tecnico de manera preventiva sin costo a tu dirección principal para evaluar el estado de tus electrodomesticos.'),
                     const SizedBox(height: 50),
                     ElevatedButton(
-                      child: const Text('Quiero suscribirme!'),
+                      child: const Text('Quiero registrar alguien mas!'),
                       onPressed: () {
                         Navigator.pushReplacementNamed(context,
-                            '/register-name'); // This will navigate to RegisterPage when tapped
+                            '/register'); // This will navigate to RegisterPage when tapped
                       },
                     ),
                   ],

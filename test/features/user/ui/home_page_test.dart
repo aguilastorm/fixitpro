@@ -1,5 +1,5 @@
 import 'package:fixitpro/features/user/ui/home_page.dart';
-import 'package:fixitpro/features/user/ui/register_page.dart';
+import 'package:fixitpro/features/user/ui/register_name_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
