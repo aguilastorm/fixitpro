@@ -3,10 +3,10 @@
 FixItPro is a Flutter-based mobile application designed to provide at-home appliance repair services on demand. Users can create an account, add their physical address(es), and request repairs for various appliances.
 
 <p float="left">
-  <img src="https://github.com/aguilastorm/fixitpro/screenshots/screenshot1.png" width="100" />
-  <img src="https://github.com/aguilastorm/fixitpro/screenshots/screenshot2.png" width="100" />
-  <img src="https://github.com/aguilastorm/fixitpro/screenshots/screenshot3.png" width="100" />
-  <img src="https://github.com/aguilastorm/fixitpro/screenshots/screenshot4.png" width="100" />
+  <img src="https://github.com/aguilastorm/fixitpro/blob/main/screenshots/screenshot1.png" width="100" />
+  <img src="https://github.com/aguilastorm/fixitpro/screenshots/blob/main/screenshot2.png" width="100" />
+  <img src="https://github.com/aguilastorm/fixitpro/screenshots/blob/main/screenshot3.png" width="100" />
+  <img src="https://github.com/aguilastorm/fixitpro/screenshots/blob/main/screenshot4.png" width="100" />
 </p>
 
 ## Features
