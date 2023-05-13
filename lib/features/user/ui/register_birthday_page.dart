@@ -76,7 +76,7 @@ class _RegisterFormState extends State<_RegisterForm> {
   @override
   Widget build(BuildContext context) {
     final registerForm = Provider.of<RegisterFormProvider>(context);
-    final userService = Provider.of<UserService>(context, listen: false);
+    // final userService = Provider.of<UserService>(context, listen: false);
     safePrint(registerForm.firstName);
     return Form(
       key: registerForm.formKey,
@@ -85,7 +85,7 @@ class _RegisterFormState extends State<_RegisterForm> {
         child: Column(
           children: [
             Text(
-                '${userService.user!.firstName}! cual es tu fecha de cumpleaños, porque nos encantaria celebrarlo ofreciendo descuentos especiales de revision temprana.'),
+                '${registerForm.firstName}! cual es tu fecha de cumpleaños, porque nos encantaria celebrarlo ofreciendo descuentos especiales de revision temprana.'),
             const SizedBox(height: 24),
             TextFormField(
               key: const Key('dateOfBirth'),

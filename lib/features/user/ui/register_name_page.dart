@@ -28,8 +28,7 @@ class RegisterNamePage extends StatelessWidget {
               Text('Registro 1/3',
                   style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: 30),
-              ChangeNotifierProvider(
-                  create: (_) => RegisterFormProvider(), child: _RegisterForm())
+              const _RegisterForm()
             ],
           )),
       const SizedBox(height: 50),
@@ -37,22 +36,20 @@ class RegisterNamePage extends StatelessWidget {
   }
 }
 
-class _RegisterForm extends StatefulWidget {
-  @override
-  State<_RegisterForm> createState() => _RegisterFormState();
-}
+class _RegisterForm extends StatelessWidget {
+  const _RegisterForm({super.key});
 
-class _RegisterFormState extends State<_RegisterForm> {
   _registerAction(context, RegisterFormProvider registerForm) async {
-    final userService = Provider.of<UserService>(context, listen: false);
+    // final userService = Provider.of<UserService>(context, listen: false);
     FocusScope.of(context).unfocus();
 
     if (!registerForm.isValidForm()) return;
 
     registerForm.isLoading = true;
-    userService.user = userService.user!.copyWith(
-        firstName: registerForm.firstName, lastName: registerForm.lastName);
-    safePrint(userService.user);
+    safePrint(registerForm.firstName);
+    // userService.user = userService.user!.copyWith(
+    //     firstName: registerForm.firstName, lastName: registerForm.lastName);
+    // safePrint(userService.user);
     Navigator.pushReplacementNamed(context, '/register-birthdate');
     registerForm.isLoading = false;
   }
@@ -79,7 +76,6 @@ class _RegisterFormState extends State<_RegisterForm> {
                   hintText: 'Escribe aquí tu nombre', labelText: 'Nombres'),
               onChanged: (value) {
                 registerForm.firstName = value;
-                setState(() {});
               },
               validator: (value) {
                 if (value == '') return 'Este campo es requerido';
@@ -98,7 +94,6 @@ class _RegisterFormState extends State<_RegisterForm> {
                   labelText: 'Apellidos'),
               onChanged: (value) {
                 registerForm.lastName = value;
-                setState(() {});
               },
               validator: (value) {
                 if (value == '') return 'Este campo es requerido';
