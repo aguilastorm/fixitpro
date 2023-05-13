@@ -21,7 +21,7 @@ Navigate to the project directory and install the dependencies:
 
 cd fixitpro
 flutter pub get
-
+flutter run
 
 Finally, execute the following command to run the application:
 
