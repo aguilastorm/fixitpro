@@ -24,14 +24,22 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 50),
                     const Text(
-                      '¡Nunca dejes que un electrodoméstico roto arruine tu día! Con FixItPro, solicitar la reparación de electrodomésticos a domicilio es tan fácil como pulsar un botón. Regístrate en 3 simples pasos directamente desde tu teléfono.',
+                      '¡Nunca dejes que un electrodoméstico roto arruine tu día!',
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Solicitar la reparación de electrodomésticos a domicilio es tan fácil como pulsar un botón. Regístrate en simples pasos directamente desde tu teléfono.',
+                      textAlign: TextAlign.justify,
                     ),
                     const SizedBox(height: 50),
                     ElevatedButton(
-                      child: const Text('Quiero suscribirme!'),
+                      child: const Text(
+                        '¡Quiero registrarme!',
+                        style: TextStyle(fontSize: 16),
+                      ),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context,
-                            '/register');
+                        Navigator.pushReplacementNamed(context, '/register');
                       },
                     ),
                   ],

@@ -2,7 +2,7 @@ import 'package:fixitpro/features/user/data/user_form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fixitpro/features/user/ui/register_page.dart';
-import 'package:provider/provider.dart'; // Import your RegisterPage here
+import 'package:provider/provider.dart';
 
 void main() {
   testWidgets('RegisterPage form test', (WidgetTester tester) async {
@@ -64,5 +64,22 @@ void main() {
     // Check if address2 widget was added
     expect(find.byKey(const Key('address1')), findsOneWidget);
 
+  });
+
+    testWidgets('RegisterPage UI Test', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => RegisterFormProvider()),
+        ],
+        child: const RegisterPage(),
+      ),
+    ));
+
+
+    await expectLater(
+      find.byType(RegisterPage),
+      matchesGoldenFile('test/goldens/register_page.png'),
+    );
   });
 }

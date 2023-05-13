@@ -42,9 +42,9 @@ class _RegisterForm extends StatelessWidget {
     FocusScope.of(context).unfocus();
     if (!registerForm.isValidForm()) return;
 
-    registerForm.isLoading = true;
+    // registerForm.isLoading = true;
     Navigator.pushReplacementNamed(context, '/register-confirmation');
-    registerForm.isLoading = false;
+    // registerForm.isLoading = false;
   }
 
   Future<void> _selectDate(
