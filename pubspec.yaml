@@ -36,6 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   go_router: ^6.5.5
+  mockito: ^5.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

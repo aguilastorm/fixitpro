@@ -50,12 +50,13 @@ class RegisterSuccessPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 50),
                     ElevatedButton(
-                      child: const Text('Quiero registrar alguien mas!'),
+                      key: const Key('buttonNext'),
                       onPressed: () {
                         registerForm.clearForm();
                         Navigator.pushReplacementNamed(context,
-                            '/'); // This will navigate to RegisterPage when tapped
+                            '/');
                       },
+                      child: const Text('Quiero registrar alguien mas!'),
                     ),
                   ],
                 ),

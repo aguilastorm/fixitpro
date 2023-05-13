@@ -35,7 +35,7 @@ class RegisterPage extends StatelessWidget {
 }
 
 class _RegisterForm extends StatelessWidget {
-  _RegisterForm({super.key});
+
 
   final TextEditingController _dateController = TextEditingController();
   _saveRegisterAction(context, RegisterFormProvider registerForm) async {
