@@ -35,8 +35,6 @@ class RegisterPage extends StatelessWidget {
 }
 
 class _RegisterForm extends StatelessWidget {
-
-
   final TextEditingController _dateController = TextEditingController();
   _saveRegisterAction(context, RegisterFormProvider registerForm) async {
     FocusScope.of(context).unfocus();
@@ -49,12 +47,24 @@ class _RegisterForm extends StatelessWidget {
 
   Future<void> _selectDate(
       BuildContext context, RegisterFormProvider registerForm) async {
+    final ThemeData themeData = Theme.of(context).copyWith(
+      colorScheme: Theme.of(context).colorScheme.copyWith(
+            primary: AppTheme.primary, // cambiar a tu color preferido
+          ),
+    );
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: registerForm.dateOfBirth,
-        currentDate: registerForm.dateOfBirth,
-        firstDate: DateTime(1900, 1, 1), // Set to a date in the distant past
-        lastDate: DateTime.now());
+      context: context,
+      initialDate: registerForm.dateOfBirth,
+      currentDate: registerForm.dateOfBirth,
+      firstDate: DateTime(1900, 1, 1), // Set to a date in the distant past
+      lastDate: DateTime.now(),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: themeData,
+          child: child!,
+        );
+      },
+    );
     if (picked != null && picked != registerForm.dateOfBirth) {
       registerForm.dateOfBirth = picked;
     }
