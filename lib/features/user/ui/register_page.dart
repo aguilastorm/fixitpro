@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class RegisterAddressPage extends StatelessWidget {
-  const RegisterAddressPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +17,13 @@ class RegisterAddressPage extends StatelessWidget {
         body: Background(
             child: SingleChildScrollView(
                 child: Column(children: [
-      const SizedBox(height: 200),
+      const SizedBox(height: 100),
       CardContainer(
           width: 500,
           child: Column(
             children: [
               const SizedBox(height: 10),
-              Text('Registro 3/3',
+              Text('Registro',
                   style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: 30),
               _RegisterForm()
@@ -38,19 +38,12 @@ class _RegisterForm extends StatelessWidget {
   _RegisterForm({super.key});
 
   final TextEditingController _dateController = TextEditingController();
-  _registerAction(context, RegisterFormProvider registerForm) async {
+  _saveRegisterAction(context, RegisterFormProvider registerForm) async {
     FocusScope.of(context).unfocus();
     if (!registerForm.isValidForm()) return;
 
     registerForm.isLoading = true;
-    // final response = await userRegisterService.registerUser(registerForm);
-    //   if (response.data != null) {
-    // safePrint('Register success');
     Navigator.pushReplacementNamed(context, '/register-confirmation');
-    // } else {
-    //   safePrint('Register error');
-    //   //TODO: Show message Tryagain
-
     registerForm.isLoading = false;
   }
 
@@ -65,7 +58,6 @@ class _RegisterForm extends StatelessWidget {
     if (picked != null && picked != registerForm.dateOfBirth) {
       registerForm.dateOfBirth = picked;
     }
-    registerForm.isLoading = false;
   }
 
   @override
@@ -178,6 +170,9 @@ class _RegisterForm extends StatelessWidget {
                               registerForm.addresses![index] = value;
                             },
                             validator: (value) {
+                              if (value!.length < 20) {
+                                return 'Completa la dirección (Ciudad, Barrio, No. Apto)';
+                              }
                               if (value == '') return 'Este campo es requerido';
                               return null;
                             },
@@ -195,6 +190,7 @@ class _RegisterForm extends StatelessWidget {
                   color: AppTheme.primary,
                 ),
                 TextButton(
+                    key: const Key('addAddressButton'),
                     onPressed: () {
                       registerForm.addNewFieldAddress();
                     },
@@ -212,7 +208,7 @@ class _RegisterForm extends StatelessWidget {
                 onPressed: registerForm.isLoading
                     ? null
                     : () {
-                        _registerAction(context, registerForm);
+                        _saveRegisterAction(context, registerForm);
                       },
                 child: Container(
                     padding: const EdgeInsets.symmetric(

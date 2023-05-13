@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                       child: const Text('Quiero suscribirme!'),
                       onPressed: () {
                         Navigator.pushReplacementNamed(context,
-                            '/register-name'); // This will navigate to RegisterPage when tapped
+                            '/register'); // This will navigate to RegisterPage when tapped
                       },
                     ),
                   ],

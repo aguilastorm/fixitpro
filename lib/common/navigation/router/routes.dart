@@ -1,8 +1,6 @@
 import 'package:fixitpro/features/user/ui/register_confirmation_page.dart';
 import 'package:fixitpro/features/user/ui/home_page.dart';
-import 'package:fixitpro/features/user/ui/register_addresses_page.dart';
-import 'package:fixitpro/features/user/ui/register_birthday_page.dart';
-import 'package:fixitpro/features/user/ui/register_name_page.dart';
+import 'package:fixitpro/features/user/ui/register_page.dart';
 import 'package:fixitpro/features/user/ui/register_success.dart';
 import 'package:fixitpro/models/models.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +23,11 @@ class AppRoutes {
       route: '/register-confirmation',
       name: 'Register Confirmation',
       page: const RegisterConfirmationPage(),
+    ),
+    MenuOption(
+      route: '/register-success',
+      name: 'Register Success',
+      page: const RegisterSuccessPage(),
     ),
   ];
 

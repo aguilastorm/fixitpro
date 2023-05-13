@@ -57,4 +57,13 @@ class RegisterFormProvider extends ChangeNotifier {
     _addresses = mutableAddresses;
     notifyListeners();
   }
+
+  clearForm() {
+    _firstName = '';
+    _lastName = '';
+    _dateOfBirth = DateTime.now();
+    _addresses = [''];
+    _isLoading = false;
+    notifyListeners();
+  }
 }

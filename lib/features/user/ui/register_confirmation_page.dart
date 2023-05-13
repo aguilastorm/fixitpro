@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:fixitpro/common/utils/app_theme.dart';
 import 'package:fixitpro/common/widgets/widgets.dart';
 import 'package:fixitpro/features/user/data/user_form_provider.dart';
 import 'package:fixitpro/features/user/services/user_register_service.dart';
 import 'package:fixitpro/features/user/ui/background.dart';
-import 'package:fixitpro/features/user/ui/input_decorations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +11,27 @@ import 'package:provider/provider.dart';
 class RegisterConfirmationPage extends StatelessWidget {
   const RegisterConfirmationPage({super.key});
 
+  _registerAction(context, RegisterFormProvider registerForm) async {
+    FocusScope.of(context).unfocus();
+    UserRegisterService userService = UserRegisterService();
+    registerForm.isLoading = true;
+    final response = await userService.registerUser(registerForm);
+    if (response.data != null) {
+      safePrint('Register success');
+      Navigator.pushReplacementNamed(context, '/register-success');
+      registerForm.isLoading = false;
+    } else {
+      safePrint('Register error');
+      //TODO: Show message Tryagain
+
+      registerForm.isLoading = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final registerForm =
         Provider.of<RegisterFormProvider>(context, listen: true);
-    double height = MediaQuery.of(context).size.height;
     safePrint(registerForm.firstName);
     return Scaffold(
         body: Background(
@@ -81,7 +95,11 @@ class RegisterConfirmationPage extends StatelessWidget {
                   disabledColor: Colors.grey,
                   elevation: 0,
                   color: AppTheme.primary,
-                  onPressed: registerForm.isLoading ? null : () {},
+                  onPressed: registerForm.isLoading
+                      ? null
+                      : () {
+                          _registerAction(context, registerForm);
+                        },
                   child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 80, vertical: 15),
@@ -102,7 +120,6 @@ class RegisterConfirmationPage extends StatelessWidget {
                   TextButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/register');
-                        ;
                       },
                       child: const Text('Corregir Datos')),
                 ],
