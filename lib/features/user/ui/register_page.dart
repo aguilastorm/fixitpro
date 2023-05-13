@@ -139,6 +139,7 @@ class _RegisterForm extends StatelessWidget {
                 value =
                     DateFormat('dd/MM/yyyy').format(registerForm.dateOfBirth);
               },
+              readOnly: true,
               validator: (value) {
                 if (value == '') return 'Este campo es requerido';
                 return null;

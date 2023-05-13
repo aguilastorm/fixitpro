@@ -2,7 +2,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:fixitpro/common/utils/app_theme.dart';
 import 'package:fixitpro/common/widgets/widgets.dart';
 import 'package:fixitpro/features/user/data/user_form_provider.dart';
-import 'package:fixitpro/features/user/services/user_register_service.dart';
 import 'package:fixitpro/common/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,18 +12,23 @@ class RegisterConfirmationPage extends StatelessWidget {
 
   _registerAction(context, RegisterFormProvider registerForm) async {
     FocusScope.of(context).unfocus();
-    UserRegisterService userService = UserRegisterService();
+    // UserRegisterService userService = UserRegisterService();
     registerForm.isLoading = true;
-    final response = await userService.registerUser(registerForm);
-    if (response.data != null) {
+   //*******************************
+    // I comment this part to achieve a performance without having to configure amplify and see the whole frontend.
+    // However the backend is functional.
+  //*******************************
+    // final response = await userService.registerUser(registerForm);
+
+    // if (response.data != null) {
       safePrint('Register success');
       Navigator.pushReplacementNamed(context, '/register-success');
       registerForm.isLoading = false;
-    } else {
-      safePrint('Register error');
+    // } else {
+    //   safePrint('Register error');
 
-      registerForm.isLoading = false;
-    }
+    //   registerForm.isLoading = false;
+    // }
   }
 
   @override
