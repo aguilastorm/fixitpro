@@ -4,9 +4,9 @@ FixItPro is a Flutter-based mobile application designed to provide at-home appli
 
 <p float="left">
   <img src="https://github.com/aguilastorm/fixitpro/blob/main/screenshots/screenshot1.png" width="100" />
-  <img src="https://github.com/aguilastorm/fixitpro/screenshots/blob/main/screenshot2.png" width="100" />
-  <img src="https://github.com/aguilastorm/fixitpro/screenshots/blob/main/screenshot3.png" width="100" />
-  <img src="https://github.com/aguilastorm/fixitpro/screenshots/blob/main/screenshot4.png" width="100" />
+  <img src="https://github.com/aguilastorm/fixitpro/blob/main/screenshots/screenshot2.png" width="100" />
+  <img src="https://github.com/aguilastorm/fixitpro/blob/main/screenshots/screenshot3.png" width="100" />
+  <img src="https://github.com/aguilastorm/fixitpro/blob/main/screenshots/screenshot4.png" width="100" />
 </p>
 
 ## Features
