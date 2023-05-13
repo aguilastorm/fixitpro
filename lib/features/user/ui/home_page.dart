@@ -1,5 +1,5 @@
 import 'package:fixitpro/common/widgets/card_container.dart';
-import 'package:fixitpro/features/user/ui/background.dart';
+import 'package:fixitpro/common/widgets/background.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                       child: const Text('Quiero suscribirme!'),
                       onPressed: () {
                         Navigator.pushReplacementNamed(context,
-                            '/register'); // This will navigate to RegisterPage when tapped
+                            '/register');
                       },
                     ),
                   ],

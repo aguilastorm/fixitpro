@@ -1,6 +1,5 @@
 import 'package:fixitpro/common/utils/app_theme.dart';
 import 'package:fixitpro/features/user/data/user_form_provider.dart';
-import 'package:fixitpro/features/user/services/user_register_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'common/navigation/router/routes.dart';

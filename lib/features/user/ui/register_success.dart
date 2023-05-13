@@ -1,6 +1,6 @@
 import 'package:fixitpro/common/widgets/card_container.dart';
 import 'package:fixitpro/features/user/data/user_form_provider.dart';
-import 'package:fixitpro/features/user/ui/background.dart';
+import 'package:fixitpro/common/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -3,7 +3,7 @@ import 'package:fixitpro/common/utils/app_theme.dart';
 import 'package:fixitpro/common/widgets/widgets.dart';
 import 'package:fixitpro/features/user/data/user_form_provider.dart';
 import 'package:fixitpro/features/user/services/user_register_service.dart';
-import 'package:fixitpro/features/user/ui/background.dart';
+import 'package:fixitpro/common/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,6 @@ class RegisterConfirmationPage extends StatelessWidget {
       registerForm.isLoading = false;
     } else {
       safePrint('Register error');
-      //TODO: Show message Tryagain
 
       registerForm.isLoading = false;
     }
