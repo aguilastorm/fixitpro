@@ -1,3 +1,4 @@
+import 'package:fixitpro/features/user/ui/register_confirmation_page.dart';
 import 'package:fixitpro/features/user/ui/home_page.dart';
 import 'package:fixitpro/features/user/ui/register_addresses_page.dart';
 import 'package:fixitpro/features/user/ui/register_birthday_page.dart';
@@ -11,25 +12,20 @@ class AppRoutes {
 
   static final menuOptions = <MenuOption>[
     MenuOption(
-        route: '/home',
-        name: 'Home',
-        page: const HomePage()),
+      route: '/home',
+      name: 'Inicio',
+      page: const HomePage(),
+    ),
     MenuOption(
-        route: '/register-name',
-        name: 'Register Name',
-        page: const RegisterNamePage()),
+      route: '/register',
+      name: 'Registro',
+      page: const RegisterPage(),
+    ),
     MenuOption(
-        route: '/register-birthdate',
-        name: 'Register Name',
-        page: const RegisterBirthDatePage()),
-    MenuOption(
-        route: '/register-address',
-        name: 'Register Name',
-        page: const RegisterAddressPage()),
-    MenuOption(
-        route: '/register-success',
-        name: 'Register Success',
-        page: const RegisterSuccessPage()),
+      route: '/register-confirmation',
+      name: 'Register Confirmation',
+      page: const RegisterConfirmationPage(),
+    ),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes(context) {

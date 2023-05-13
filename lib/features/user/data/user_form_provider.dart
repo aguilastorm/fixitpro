@@ -7,11 +7,13 @@ class RegisterFormProvider extends ChangeNotifier {
   String _lastName = '';
   DateTime _dateOfBirth = DateTime.now();
   List<String>? _addresses = [''];
+  bool _isLoading = false;
 
   String get firstName => _firstName;
   String get lastName => _lastName;
   DateTime get dateOfBirth => _dateOfBirth;
   List<String>? get addresses => _addresses;
+  bool get isLoading => _isLoading;
 
   set firstName(String value) {
     _firstName = value;
@@ -27,9 +29,6 @@ class RegisterFormProvider extends ChangeNotifier {
     _dateOfBirth = value;
     notifyListeners();
   }
-
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
 
   set isLoading(bool value) {
     _isLoading = value;

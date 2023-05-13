@@ -5,5 +5,8 @@ class MenuOption {
   final String name;
   final Widget page;
 
-  MenuOption({required this.route, required this.name, required this.page});
+  MenuOption(
+      {required this.route,
+      required this.name,
+      required this.page});
 }
