@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:fixitpro/common/utils/app_theme.dart';
 import 'package:fixitpro/common/widgets/widgets.dart';
 import 'package:fixitpro/features/user/data/user_form_provider.dart';
-import 'package:fixitpro/features/user/services/user_register_service.dart';
 import 'package:fixitpro/features/user/ui/background.dart';
 import 'package:fixitpro/features/user/ui/input_decorations.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +26,7 @@ class RegisterPage extends StatelessWidget {
               Text('Registro',
                   style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: 30),
-              ChangeNotifierProvider(
-                  create: (_) => RegisterFormProvider(), child: _RegisterForm())
+              _RegisterForm()
             ],
           )),
       const SizedBox(height: 50),
@@ -37,52 +34,53 @@ class RegisterPage extends StatelessWidget {
   }
 }
 
-class _RegisterForm extends StatefulWidget {
-  @override
-  State<_RegisterForm> createState() => _RegisterFormState();
-}
+class _RegisterForm extends StatelessWidget {
+  _RegisterForm({super.key});
 
-class _RegisterFormState extends State<_RegisterForm> {
-  String _registerMessage = '';
-  DateTime _selectedDate = DateTime.now();
   final TextEditingController _dateController = TextEditingController();
-  _registerAction(context, registerForm) async {
+  _registerAction(context, RegisterFormProvider registerForm) async {
     FocusScope.of(context).unfocus();
-    final userRegisterService =
-        Provider.of<UserRegisterService>(context, listen: false);
-
     if (!registerForm.isValidForm()) return;
 
     registerForm.isLoading = true;
-    // TODO: Accion before validation
+    // final response = await userRegisterService.registerUser(registerForm);
+    //   if (response.data != null) {
+    // safePrint('Register success');
+    Navigator.pushReplacementNamed(context, '/register-confirmation');
+    // } else {
+    //   safePrint('Register error');
+    //   //TODO: Show message Tryagain
+
     registerForm.isLoading = false;
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(
+      BuildContext context, RegisterFormProvider registerForm) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: _selectedDate,
-        currentDate: _selectedDate,
+        initialDate: registerForm.dateOfBirth,
+        currentDate: registerForm.dateOfBirth,
         firstDate: DateTime(1900, 1, 1), // Set to a date in the distant past
         lastDate: DateTime.now());
-    if (picked != null && picked != _selectedDate) {
-      _selectedDate = picked;
-      setState(() {});
+    if (picked != null && picked != registerForm.dateOfBirth) {
+      registerForm.dateOfBirth = picked;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final registerForm = Provider.of<RegisterFormProvider>(context);
+    _dateController.text =
+        DateFormat('dd/MM/yyyy').format(registerForm.dateOfBirth);
     return Form(
       key: registerForm.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: AutofillGroup(
         child: Column(
           children: [
-            Text(_registerMessage, style: const TextStyle(color: Colors.red)),
             TextFormField(
               key: const Key('firstName'),
+              initialValue: registerForm.firstName,
               textInputAction: TextInputAction.next,
               enableSuggestions: true,
               autocorrect: false,
@@ -91,8 +89,6 @@ class _RegisterFormState extends State<_RegisterForm> {
                   hintText: 'Escribe aquí tu nombre', labelText: 'Nombres'),
               onChanged: (value) {
                 registerForm.firstName = value;
-                _registerMessage = '';
-                setState(() {});
               },
               validator: (value) {
                 if (value == '') return 'Este campo es requerido';
@@ -102,6 +98,7 @@ class _RegisterFormState extends State<_RegisterForm> {
             const SizedBox(height: 24),
             TextFormField(
               key: const Key('lastName'),
+              initialValue: registerForm.lastName,
               textInputAction: TextInputAction.next,
               enableSuggestions: true,
               autocorrect: false,
@@ -110,9 +107,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                   hintText: 'Escribe aquí tus apellidos',
                   labelText: 'Apellidos'),
               onChanged: (value) {
-                registerForm.firstName = value;
-                _registerMessage = '';
-                setState(() {});
+                registerForm.lastName = value;
               },
               validator: (value) {
                 if (value == '') return 'Este campo es requerido';
@@ -133,12 +128,13 @@ class _RegisterFormState extends State<_RegisterForm> {
               onTap: () async {
                 FocusScope.of(context)
                     .requestFocus(FocusNode()); // to dismiss the keyboard
-                await _selectDate(context);
+                await _selectDate(context, registerForm);
                 _dateController.text =
-                    DateFormat('dd/MM/yyyy').format(_selectedDate);
+                    DateFormat('dd/MM/yyyy').format(registerForm.dateOfBirth);
               },
               onChanged: (value) {
-                value = DateFormat('dd/MM/yyyy').format(_selectedDate);
+                value =
+                    DateFormat('dd/MM/yyyy').format(registerForm.dateOfBirth);
               },
               validator: (value) {
                 if (value == '') return 'Este campo es requerido';
@@ -146,6 +142,7 @@ class _RegisterFormState extends State<_RegisterForm> {
               },
             ),
             // const SizedBox(height: 24),
+
             ListView.builder(
                 shrinkWrap: true,
                 itemCount: registerForm.addresses!.length,
@@ -159,6 +156,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                           padding: const EdgeInsets.only(bottom: 16),
                           child: TextFormField(
                             key: Key('address$index'),
+                            initialValue: registerForm.addresses![index],
                             textInputAction: TextInputAction.next,
                             enableSuggestions: true,
                             autocorrect: false,
@@ -176,9 +174,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                                         })
                                     : const SizedBox()),
                             onChanged: (value) {
-                              registerForm.firstName = value;
-                              _registerMessage = '';
-                              setState(() {});
+                              registerForm.addresses![index] = value;
                             },
                             validator: (value) {
                               if (value == '') return 'Este campo es requerido';
@@ -199,7 +195,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                 ),
                 TextButton(
                     onPressed: () {
-                      registerForm.addAddress();
+                      registerForm.addNewFieldAddress();
                     },
                     child: const Text('Agregar dirección')),
               ],

@@ -1,4 +1,5 @@
 import 'package:fixitpro/common/utils/app_theme.dart';
+import 'package:fixitpro/features/user/data/user_form_provider.dart';
 import 'package:fixitpro/features/user/services/user_register_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,7 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_) => UserRegisterService()),
+      ChangeNotifierProvider(create: (_) => RegisterFormProvider()),
     ], child: const FixItProApp());
   }
 }
