@@ -2,7 +2,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:fixitpro/fixitpro_app.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'amplifyconfiguration.dart';
+// import 'amplifyconfiguration.dart';
 
 import 'models/ModelProvider.dart';
 
